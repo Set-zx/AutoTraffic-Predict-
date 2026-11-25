@@ -157,7 +157,8 @@ python -m pytest -m entrega      # verificación previa a la entrega
 ```
 
 - Las pruebas de servicios viven en `tests/services/` y no dependen de `pyproject.toml` ni de otros archivos compartidos: el marcador `entrega` se registra en `tests/services/conftest.py`.
-- Las de integración usan automáticamente `src.preprocessing` y `src.prediction` cuando ambos existen; si falta alguno, usan el backend provisional.
+- Las de integración usan automáticamente `src.preprocessing` y `src.prediction` cuando ambos **exponen las funciones del contrato**; mientras sean carpetas vacías o les falte alguna función, usan el backend provisional.
+- Cada carpeta de módulo necesita un archivo llamado exactamente `__init__.py` (con dos guiones bajos a cada lado). Un archivo `init.py` no convierte la carpeta en paquete.
 - `tests/services/fakes.py` contiene dobles de prueba que provocan salidas inválidas a propósito. Solo los usan las pruebas y no generan predicciones entregables.
 - `pytest -m entrega` comprueba: módulos reales presentes, carpeta `provisional/` eliminada, servicio real arrancando y los 41 casos de ejemplo exportados en formato oficial.
 
