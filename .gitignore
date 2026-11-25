@@ -1,0 +1,20 @@
+# Entornos virtuales Python
+.venv/
+venv/
+env/
+
+# Cachés de Python y Pytest
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+
+# Salidas generadas y respaldos locales
+outputs/*.csv
+*.zip
+
+# Archivos de sistema y editores
+.DS_Store
+.vscode/
+.idea/
