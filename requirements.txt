@@ -1,0 +1,8 @@
+numpy>=2.1.3,<3.0.0
+pandas>=2.2.3,<3.0.0
+networkx>=3.4.2,<4.0.0
+plotly>=5.24.1,<6.0.0
+streamlit>=1.40.2,<2.0.0
+pytest>=8.3.4,<9.0.0
+# Descomentar únicamente si el módulo de modelado requiere scikit-learn:
+# scikit-learn>=1.5.2,<2.0.0

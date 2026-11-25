@@ -1,1 +1,10 @@
-
+punto_id,nombre,x_km,y_km
+P1,Zona Habitacional Norte,0.0,4.0
+P2,Universidad,2.0,4.2
+P3,Parque Industrial,4.2,4.0
+P4,Mercado,0.2,2.0
+P5,Plaza Central,2.0,2.0
+P6,Hospital,4.0,2.2
+P7,Zona Habitacional Sur,0.0,0.0
+P8,Terminal de Autobuses,2.1,0.0
+P9,Centro Logístico,4.0,0.0
