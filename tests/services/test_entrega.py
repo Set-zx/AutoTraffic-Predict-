@@ -16,14 +16,10 @@ pytestmark = pytest.mark.entrega
 
 
 def test_modulos_reales_presentes():
-    def _find(m):
-        try:
-            return importlib.util.find_spec(m) is not None
-        except ModuleNotFoundError:
-            return False
+    from .conftest import _implements_contract
 
-    faltan = [m for m in (DEFAULT_PROCESSING, DEFAULT_MODEL) if not _find(m)]
-    assert not faltan, f"faltan módulos reales: {faltan}"
+    faltan = [m for m in (DEFAULT_PROCESSING, DEFAULT_MODEL) if not _implements_contract(m)]
+    assert not faltan, f"módulos reales ausentes o sin las funciones del contrato: {faltan}"
 
 
 def test_backend_provisional_eliminado():

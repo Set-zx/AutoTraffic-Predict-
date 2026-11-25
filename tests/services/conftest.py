@@ -17,15 +17,23 @@ DATA_FILES = ("nodos.csv", "tramos.csv", "vehiculos.csv", "captaciones.csv")
 REAL_MODULES = (DEFAULT_PROCESSING, DEFAULT_MODEL)
 
 
-def _find(mod: str) -> bool:
+REQUIRED = {DEFAULT_PROCESSING: ("load_network", "load_trips"), DEFAULT_MODEL: ("build_model",)}
+
+
+def _implements_contract(mod: str) -> bool:
+    """True solo si el módulo se importa Y expone las funciones del contrato.
+
+    Una carpeta con archivos vacíos (andamiaje del repositorio) no cuenta como módulo real.
+    """
     try:
-        return importlib.util.find_spec(mod) is not None
-    except ModuleNotFoundError:
+        m = importlib.import_module(mod)
+    except Exception:
         return False
+    return all(callable(getattr(m, fn, None)) for fn in REQUIRED[mod])
 
 
 def _real_modules_available() -> bool:
-    return all(_find(m) for m in REAL_MODULES)
+    return all(_implements_contract(m) for m in REAL_MODULES)
 
 
 # --- Marcador "entrega" sin depender de archivos compartidos (pyproject.toml) ---

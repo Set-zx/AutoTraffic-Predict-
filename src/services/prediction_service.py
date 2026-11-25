@@ -80,11 +80,15 @@ class PredictionService:
         model_name = cfg.resolved_model_module if model_module is None else getattr(model_module, "__name__", type(model_module).__name__)
         self._processing = processing or _import(proc_name, "procesamiento", cfg.backend)
         self._model_module = model_module or _import(model_name, "modelo", cfg.backend)
+        hint = (
+            " Revise que la carpeta tenga un __init__.py (no init.py) que exponga la función."
+            " Mientras se integra, puede usarse AUTOTRAFFIC_BACKEND=provisional."
+        )
         for fn in ("load_network", "load_trips"):
             if not callable(getattr(self._processing, fn, None)):
-                raise AutoTrafficError(f"El módulo de procesamiento no expone {fn}()")
+                raise AutoTrafficError(f"El módulo de procesamiento '{proc_name}' no expone {fn}().{hint}")
         if not callable(getattr(self._model_module, "build_model", None)):
-            raise AutoTrafficError("El módulo del modelo no expone build_model()")
+            raise AutoTrafficError(f"El módulo del modelo '{model_name}' no expone build_model().{hint}")
         if cfg.backend == "provisional":
             log.warning("Backend PROVISIONAL activo: no usar para la entrega final.")
 
